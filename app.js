@@ -1,6 +1,7 @@
 const express = require('express');
 const swig = require('swig');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const app= express();
 
@@ -33,6 +34,14 @@ app.use('/admin',require('./routers/admin'));
 //     res.render('index.html');
 // });
 
-app.listen(port,function(){
-    console.log('blog-protal in run http://127.0.0.1:'+port+'/')
+mongoose.connect('mongodb://localhost:27017/blog', function(err){
+    if(err){
+        console.log('数据库连接失败!');
+    }else{
+        console.log('数据库连接成功!');
+        app.listen(port,function(){
+            console.log('blog-protal in run http://127.0.0.1:'+port+'/')
+        });
+    }
 });
+
