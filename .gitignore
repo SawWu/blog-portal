@@ -6,27 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 *.xml
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
 node_modules/
-
 .npm
-
-# Optional eslint cache
-.eslintcache
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
 
 .git
 .idea
