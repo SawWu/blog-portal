@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/SawWu/blog-portal/issues"
   },
-  "homepage": "https://github.com/SawWu/blog-portal#readme"
+  "homepage": "https://github.com/SawWu/blog-portal#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
