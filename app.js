@@ -5,7 +5,12 @@ const path = require('path');
 
 const app= express();
 
-const port=8001;
+const port=process.env.PORT || 8081;
+
+swig.setDefaults({
+    cache: false
+});
+app.set('view cache', false);
 
 app.set('views','./views/');
 
@@ -13,7 +18,6 @@ app.set('view engine','html');
 
 app.engine('html', swig.renderFile);
 
-app.set('view cache', false);
 
 
 app.use(express.static(path.join(__dirname, 'public')));
