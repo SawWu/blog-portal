@@ -14,4 +14,30 @@ $(function(){
         $loginBox.show();
         $registerBox.hide();
     });
+
+    //注册
+    $registerBox.find('button').on('click', function() {
+        //通过ajax提交请求
+        $.ajax({
+            type: 'post',
+            url: '/api/user/register',
+            data: {
+                username: $registerBox.find('[name="username"]').val(),
+                password: $registerBox.find('[name="password"]').val(),
+                repassword: $registerBox.find('[name="repassword"]').val()
+            },
+            dataType: 'json',
+            success: function(result) {
+                console.log(result);
+                $registerBox.find('.colWarning').html(result.message);
+                if (!result.code) {
+                    //注册成功
+                    setTimeout(function() {
+                        $loginBox.show();
+                        $registerBox.hide();
+                    }, 1000);
+                }
+            }
+        });
+    });
 });
