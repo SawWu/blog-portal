@@ -13,7 +13,6 @@ router.use(function(req, res, next) {
 
 
 router.post('/user/register',function(req,res){
-    console.log(req.body);
     var username = req.body.username;
     var password = req.body.password;
     var repassword = req.body.repassword;
@@ -42,8 +41,7 @@ router.post('/user/register',function(req,res){
         if(userInfo){
             responseData.code = 4;
             responseData.message = '用户名已经被注册了';
-            res.json(responseData);
-            return;
+            return res.json(responseData);
         };
         var user = new User({
             username: username,
@@ -54,6 +52,37 @@ router.post('/user/register',function(req,res){
         responseData.message = '注册成功';
         res.json(responseData);
     });
+});
+
+
+router.post('/user/login',function(req,res,next){
+    var username = req.body.username;
+    var password = req.body.password;
+
+    if (username == ''||password == '' ) {
+        responseData.code = 1;
+        responseData.message = '用户名和密码不能为空';
+        return res.json(responseData);
+    }
+
+    User.findOne({
+        username: username,
+        password: password
+    }).then(function(userInfo){
+        if (!userInfo) {
+            responseData.code = 2;
+            responseData.message = '用户名或密码错误';
+            return res.json(responseData);
+        }
+        responseData.message = '登录成功';
+        responseData.responseData = {
+            _id: userInfo._id,
+            username: userInfo.username
+        };
+        res.cookie('userInfo',JSON.stringify(responseData.responseData));
+        return res.json(responseData);
+    });
+
 });
 
 module.exports = router;

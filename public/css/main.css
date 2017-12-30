@@ -267,7 +267,7 @@ main .mainRight .rightBox {
     padding: 16px 30px;
     margin-bottom: 30px;
 }
-main .mainRight .rightBox#registerBox {
+main .mainRight .rightBox#registerBox, main .mainRight .rightBox#userInfo{
     display: none;
 }
 

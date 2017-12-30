@@ -28,7 +28,6 @@ $(function(){
             },
             dataType: 'json',
             success: function(result) {
-                console.log(result);
                 $registerBox.find('.colWarning').html(result.message);
                 if (!result.code) {
                     //注册成功
@@ -40,4 +39,27 @@ $(function(){
             }
         });
     });
+
+    //登录
+    $loginBox.find('button').on('click', function() {
+        $.ajax({
+            type: 'post',
+            url: '/api/user/login',
+            data: {
+                username: $loginBox.find('[name="username"]').val(),
+                password: $loginBox.find('[name="password"]').val()
+            },
+            dataType: 'json',
+            success: function(result) {
+                console.log(result);
+                $loginBox.find('.colWarning').html(result.message);
+                if (!result.code) {
+                    $loginBox.hide();
+                    $userInfo.show();
+                    //登录成功
+                    //window.location.reload();
+                }
+            }
+        })
+    })
 });
