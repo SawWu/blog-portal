@@ -24,15 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',require('./routers/main.js'));
 
-app.use('/admin',require('./routers/admin'));
+//app.use('/admin',require('./routers/admin'));
 
 // app.use('/api',require('./routers/api.js'));
-//
 
-
-// app.get('/',function(req,res){
-//     res.render('index.html');
-// });
 
 mongoose.connect('mongodb://localhost:27017/blog', function(err){
     if(err){
