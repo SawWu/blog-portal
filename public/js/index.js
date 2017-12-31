@@ -29,7 +29,7 @@ $(function(){
             dataType: 'json',
             success: function(result) {
                 $registerBox.find('.colWarning').html(result.message);
-                if (!result.code) {
+                if (result.code== 0) {
                     //注册成功
                     setTimeout(function() {
                         $loginBox.show();
@@ -51,15 +51,29 @@ $(function(){
             },
             dataType: 'json',
             success: function(result) {
-                console.log(result);
                 $loginBox.find('.colWarning').html(result.message);
-                if (!result.code) {
-                    $loginBox.hide();
-                    $userInfo.show();
+                if (result.code== 0) {
                     //登录成功
-                    //window.location.reload();
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 500);
+
                 }
             }
         })
+    })
+
+    //退出
+    $('#logout').on('click', function() {
+        $.ajax({
+            type: 'get',
+            url: '/api/user/logout',
+            dataType: 'json',
+            success: function(result) {
+                if (result.code== 0) {
+                    window.location.reload();
+                }
+            }
+        });
     })
 });
