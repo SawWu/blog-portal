@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 
 module.exports = new Schema({
     username: String,
-    password: String
+    password: String,
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 
