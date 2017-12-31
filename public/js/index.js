@@ -51,7 +51,6 @@ $(function(){
             },
             dataType: 'json',
             success: function(result) {
-                console.log(result);
                 $loginBox.find('.colWarning').html(result.message);
                 if (result.code== 0) {
                     //登录成功
@@ -62,5 +61,19 @@ $(function(){
                 }
             }
         })
+    })
+
+    //退出
+    $('#logout').on('click', function() {
+        $.ajax({
+            type: 'get',
+            url: '/api/user/logout',
+            dataType: 'json',
+            success: function(result) {
+                if (result.code== 0) {
+                    window.location.reload();
+                }
+            }
+        });
     })
 });

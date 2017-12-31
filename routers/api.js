@@ -93,4 +93,9 @@ router.post('/user/login',function(req,res){
     });
 });
 
+router.get('/user/logout', function(req, res) {
+    res.cookie('userInfo',null,{maxAge:0});
+    res.json(responseData);
+});
+
 module.exports = router;
