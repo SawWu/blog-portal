@@ -55,7 +55,7 @@ router.post('/user/register',function(req,res){
 });
 
 
-router.post('/user/login',function(req,res,next){
+router.post('/user/login',function(req,res){
     var username = req.body.username;
     var password = req.body.password;
 
@@ -66,23 +66,31 @@ router.post('/user/login',function(req,res,next){
     }
 
     User.findOne({
-        username: username,
-        password: password
+        username: username
     }).then(function(userInfo){
         if (!userInfo) {
             responseData.code = 2;
-            responseData.message = '用户名或密码错误';
+            responseData.message = '用户名不存在';
             return res.json(responseData);
         }
-        responseData.message = '登录成功';
-        responseData.responseData = {
-            _id: userInfo._id,
-            username: userInfo.username
-        };
-        res.cookie('userInfo',JSON.stringify(responseData.responseData));
-        return res.json(responseData);
-    });
+        User.findOne({
+            password: password
+        }).then(function(userInfo){
+            if (!userInfo) {
+                responseData.code = 3;
+                responseData.message = '密码错误';
+                return res.json(responseData);
+            }
+            responseData.message = '登录成功';
+            responseData.userInfo = {
+                _id: userInfo._id,
+                username: username
+            };
 
+            res.cookie('userInfo',JSON.stringify(responseData.userInfo));
+            return res.json(responseData);
+        })
+    });
 });
 
 module.exports = router;

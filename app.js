@@ -3,6 +3,7 @@ const swig = require('swig');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app= express();
 
@@ -26,6 +27,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(bodyParser.json());
 
+app.use(cookieParser());
+
+app.use(function(req, res, next){
+    req.userInfo = {};
+    if(req.cookies.userInfo){
+        req.userInfo = JSON.parse(req.cookies.userInfo);
+    }
+    next();
+});
+
 app.use('/',require('./routers/main.js'));
 
 app.use('/admin',require('./routers/admin'));
@@ -33,13 +44,13 @@ app.use('/admin',require('./routers/admin'));
 app.use('/api',require('./routers/api.js'));
 
 
-mongoose.connect('mongodb://localhost:27017/blog', function(err){
+mongoose.connect(`mongodb://localhost:27017/blog`, function(err){
     if(err){
-        console.log('数据库连接失败!');
+        console.log(`数据库连接失败!`);
     }else{
-        console.log('数据库连接成功!');
+        console.log(`数据库连接成功!`);
         app.listen(port,function(){
-            console.log('blog-protal in run http://127.0.0.1:'+port+'/')
+            console.log(`blog-protal in run http://127.0.0.1:${port}/`)
         });
     }
 });
