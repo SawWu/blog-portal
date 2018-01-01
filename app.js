@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+const User = require('./models/User');
+
 const app= express();
 
 const port=process.env.PORT || 8081;
@@ -33,8 +35,13 @@ app.use(function(req, res, next){
     req.userInfo = {};
     if(req.cookies.userInfo){
         req.userInfo = JSON.parse(req.cookies.userInfo);
+        User.findById(req.userInfo._id).then(function(userInfo) {
+            req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
+        });
     }
-    next();
+    setTimeout(function(){
+        next();
+    },100)
 });
 
 app.use('/',require('./routers/main.js'));
