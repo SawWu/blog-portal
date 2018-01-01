@@ -37,11 +37,11 @@ app.use(function(req, res, next){
         req.userInfo = JSON.parse(req.cookies.userInfo);
         User.findById(req.userInfo._id).then(function(userInfo) {
             req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
-            console.log(req.userInfo);
         });
-
     }
-    next();
+    setTimeout(function(){
+        next();
+    },100)
 });
 
 app.use('/',require('./routers/main.js'));

@@ -1,8 +1,15 @@
 const express= require('express');
-const router=express.Router();
+const router= express.Router();
 
-router.get('/user',function(req,res){
-    res.send('<h1>Admin</h1>')
+router.get('/user',function(req,res,next){
+    next();
+});
+
+router.get('/',function(req,res){
+    console.log(req.userInfo);
+    res.render('admin/index', {
+        userInfo: req.userInfo
+    });
 });
 
 module.exports = router;
