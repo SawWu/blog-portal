@@ -11,6 +11,8 @@ const app= express();
 
 const port=process.env.PORT || 8081;
 
+const host='127.0.0.1';
+
 swig.setDefaults({
     cache: false
 });
@@ -51,13 +53,13 @@ app.use('/admin',require('./routers/admin'));
 app.use('/api',require('./routers/api.js'));
 
 
-mongoose.connect(`mongodb://localhost:27017/blog`, function(err){
+mongoose.connect(`mongodb://${host}:27017/blog`, function(err){
     if(err){
         console.log(`数据库连接失败!:${err}`);
     }else{
         console.log(`数据库连接成功!`);
         app.listen(port,function(){
-            console.log(`blog-protal run in http://127.0.0.1:${port}/`)
+            console.log(`blog-protal run in http://${host}:${port}/`)
         });
     }
 });
