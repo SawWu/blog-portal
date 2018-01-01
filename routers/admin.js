@@ -6,7 +6,6 @@ router.get('/user',function(req,res,next){
 });
 
 router.get('/',function(req,res){
-    console.log(req.userInfo);
     res.render('admin/index', {
         userInfo: req.userInfo
     });

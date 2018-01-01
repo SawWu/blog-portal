@@ -1,7 +1,6 @@
 $(function(){
     var $loginBox = $('#loginBox');
     var $registerBox = $('#registerBox');
-    var $userInfo = $('#userInfo');
 
     //切换到注册面板
     $loginBox.find('a.colMint').on('click', function() {
@@ -61,7 +60,7 @@ $(function(){
                 }
             }
         })
-    })
+    });
 
     //退出
     $('#logout').on('click', function() {
