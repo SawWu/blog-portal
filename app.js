@@ -53,7 +53,7 @@ app.use('/admin',require('./routers/admin'));
 app.use('/api',require('./routers/api.js'));
 
 
-mongoose.connect(`mongodb://${host}:27017/blog`, function(err){
+mongoose.connect(`mongodb://${host}:27017/blog`, (err)=>{
     if(err){
         console.log(`数据库连接失败!:${err}`);
     }else{

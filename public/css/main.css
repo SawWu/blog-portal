@@ -267,6 +267,10 @@ main .mainRight .rightBox {
     padding: 16px 30px;
     margin-bottom: 30px;
 }
+main .mainRight .rightBox#loginBox{
+    display: none;
+}
+
 main .mainRight .rightBox .title {
     border-bottom: 1px solid #ebebeb;
     font-size: 18px;
